@@ -1,0 +1,10 @@
+#
+# @author: Vitaliy Krutko
+# @e-mail: asmforce@ukr.net asmxforce@gmail.com
+# @project: elib (external library)
+# @target: syntax-cclass demo
+#
+
+
+TARGET = syntax-cclass.exe
+include makefile.common

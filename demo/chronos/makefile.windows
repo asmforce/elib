@@ -1,0 +1,11 @@
+#
+# @author: Vitaliy Krutko
+# @e-mail: asmforce@ukr.net asmxforce@gmail.com
+# @project: elib (external library)
+# @target: chronos demo
+#
+
+
+OS = windows
+TARGET = chronos.exe
+include makefile.common

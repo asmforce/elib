@@ -1,0 +1,25 @@
+#
+# @author: Vitaliy Krutko
+# @e-mail: asmforce@ukr.net asmxforce@gmail.com
+# @project: elib (external library)
+# @target: demo applications
+#
+
+
+REMOVE	= rm -f
+
+all: ./compiled
+
+./compiled:
+	for i in $$(cat ./demos.ls);  do cd ./$$i && make -f $(MAKEFILE) all ;  cd ./../ ;  done
+	touch ./compiled
+
+install: ./compiled
+	for i in $$(cat ./demos.ls);  do cd ./$$i && make -f $(MAKEFILE) $@ ;  cd ./../ ;  done
+
+uninstall:
+	for i in $$(cat ./demos.ls);  do cd ./$$i && make -f $(MAKEFILE) $@ ;  cd ./../ ;  done
+
+clean:
+	$(REMOVE) ./compiled
+	for i in $$(cat ./demos.ls);  do cd ./$$i && make -f $(MAKEFILE) $@ ;  cd ./../ ;  done

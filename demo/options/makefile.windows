@@ -1,0 +1,10 @@
+#
+# @author: Vitaliy Krutko
+# @e-mail: asmforce@ukr.net asmxforce@gmail.com
+# @project: elib (external library)
+# @target: options demo
+#
+
+
+TARGET = options.exe
+include makefile.common

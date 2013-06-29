@@ -1,0 +1,32 @@
+#
+# @author: Vitaliy Krutko
+# @e-mail: asmforce@ukr.net asmxforce@gmail.com
+# @project: elib (external library)
+# @target: core demo
+#
+
+
+CXX	= g++ -c -funsigned-char
+LINK	= g++ -s
+REMOVE	= rm -f
+COPY	= cp -f
+FLAGS	= -Wall
+LIBS	= -L./../../lib -lelib
+INCLUDE	= -I./../../include
+
+all: ./$(TARGET)
+
+./$(TARGET): ./main.o
+	$(LINK) -o $@ $^ $(LIBS)
+
+./main.o: ./main.cpp
+	$(CXX) $(FLAGS) $(INCLUDE) -o $@ $^
+
+install: all
+	$(COPY) ./$(TARGET) ./../../bin
+
+uninstall:
+	$(REMOVE) ./../../bin/$(TARGET)
+
+clean:
+	$(REMOVE) ./main.o ./$(TARGET)

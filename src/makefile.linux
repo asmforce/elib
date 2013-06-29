@@ -1,0 +1,56 @@
+#
+# @author: Vitaliy Krutko
+# @e-mail: asmforce@ukr.net asmxforce@gmail.com
+# @project: elib (external library)
+# @target: elib libraries
+#
+
+
+CXX	= g++ -c -funsigned-char
+LINK	= g++ -shared -s
+AR	= ar -r
+REMOVE	= rm -f
+COPY	= cp -f
+FLAGS	= -Wall -DELIB_BUILD
+INCLUDE	= -I./../include
+TARGET1	= libelib.so
+TARGET2	= libelib.a
+LIBSDIR = /usr/lib
+
+all: ./$(TARGET1) ./$(TARGET2)
+	touch ./compiled
+
+./$(TARGET1): ./core.o ./options.o ./syntax/cclass.o ./syntax/core.o ./crypto/md5.o
+	$(LINK) -o $@ $^
+
+./$(TARGET2): ./core.o ./options.o ./syntax/cclass.o ./syntax/core.o ./crypto/md5.o
+	$(AR) $@ $^
+
+./core.o: ./core.cpp
+	$(CXX) $(FLAGS) $(INCLUDE) -o $@ $^
+
+./options.o: ./options.cpp
+	$(CXX) $(FLAGS) $(INCLUDE) -o $@ $^
+
+./syntax/core.o: ./syntax/core.cpp
+	$(CXX) $(FLAGS) $(INCLUDE) -o $@ $^
+
+./syntax/cclass.o: ./syntax/cclass.cpp
+	$(CXX) $(FLAGS) -Wno-char-subscripts $(INCLUDE) -o $@ $^
+
+./crypto/md5.o: ./crypto/md5.cpp
+	$(CXX) $(FLAGS) $(INCLUDE) -o $@ $^
+
+install:
+	$(COPY) ./$(TARGET1) ./../lib/
+	$(COPY) ./$(TARGET1) $(LIBSDIR)/
+	$(COPY) ./$(TARGET2) ./../lib/
+	$(COPY) ./$(TARGET2) $(LIBSDIR)/
+
+uninstall:
+	$(REMOVE) ./../lib/$(TARGET1) $(LIBSDIR)/$(TARGET1) ./../lib/$(TARGET2) $(LIBSDIR)/$(TARGET2)
+
+clean:
+	$(REMOVE) ./core.o ./options.o ./syntax/cclass.o ./syntax/core.o ./crypto/md5.o
+	$(REMOVE) ./$(TARGET1) ./$(TARGET2)
+	$(REMOVE) ./compiled
